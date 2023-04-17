@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS INTERVIEW</title>
+    <style>
+        .dec{
+            font-style: italic;
+            text-align: center;
+        }
+        pre{
+            font-size: 25px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body>
+<pre>
+    DAY1
+1.Difference between “ == “ and “ === “ operators.
+2.What is the spread operator?
+3.What are the differences between var, let and const?
+4.What is execution context
+5.What is creation phase and execution phase?
+6.What is meant by first class functions
+7.What are closures? Give an example of closure
+8.Explain call(), apply() and, bind() methods. Give an example of call(), apply(), bind()
+9.What are objects in javascript?
+10.What are function constructors?
+11.Explain prototypes
+12.What is prototype chain
+
+DAY2
+13.Give an example of inheritance using function constructor
+14.What are callbacks?
+15.What is the use of setTimeout
+16.What is an event loop and call stack
+17.What are promises and why do we need them?
+18.What is the purpose of async/await keywords?
+19.What is hoisting?
+20.What is the DOM?
+21.Difference between undefined vs not defined vs NaN
+22.Nullish operator
+
+DAY3
+23.How many operators do we have in JS ?
+24.What are pure functions?
+25.What is callback hell
+26.What is promise chaining
+27.What are arrow functions?
+28.Give an example of async/await
+29.What is a Temporal Dead Zone?
+30.What is the for-in loop in JavaScript? Give its syntax
+31.Explain Local Scope, Block Scope, Functional Scope and Scope Chain in javascript
+32.What is difference between null and undefined and where to use what?
+
+DAY4
+33.what is Symbol?
+34.Write code to explain map and filter in arrays
+35.Explain passed by value and passed by reference
+36.Please explain Self Invoking Function and its code
+37.Create a button , on click of which new Heading tag h1 should be added with text as "MERN stack" on the screen above button
+38.Write code to get 1st H1 element from a webpage using DOM
+39.Write code to implement timer clock using JS -- display HH:MM:SS -- the time should keep updating every second
+40.Create an HTML page having content as Hello world and a button named Replace Text. When user will click on this button page content should be changed to "Welcome to Elevation academy"
+41.Create an HTML page having content as Hello world and a button named "Hide Text." When user will click on this button hide the "Hello World" text
+42.Fetch an API
+
+</pre>
+
+
+    <hr><H1>QN1-1.Difference between “ == “ and “ === “ operators. in js</H1>
+<pre>
+    ==
+    equal value every data types mean any data type eg string="5",number=5; "5"==="5" true---5===5 true---5==="5"true
+    == is used to compare two variables irrespective of the variable's data type.
+    ===
+    equal value equal data types mean same data type eg string="5",number=5; "5"==="5" true---5===5 true---5==="5"false
+    === is used to compare two variables, but this will check strict type, which means it will check the datatype and compare two values.
+    0 == false // true
+    0 === false // false, because they are of a different type
+    1 == "1" // true, automatic type conversion for value only
+    1 === "1" // false, because they are of a different type
+    null == undefined // true
+    null === undefined // false
+    '0' == false // true
+    '0' === false // false</pre>
+    <hr><H1>2.What is the spread operator?</H1>
+    <pre>
+        allows us to quickly copy all or part of an existing array or object into another array or object.
+        const numbersOne = [1, 2, 3];
+        const numbersTwo = [4, 5, 6];
+        const numbersCombined = [...numbersOne, ...numbersTwo];
+
+        document.write(numbersCombined);
+    </pre>
+    <hr><H1>OUTPUT</H1>
+    <pre>1,2,3,4,5,6</pre>
+    <hr><H1>3.What are the differences between var, let and const?</H1>
+    <pre>var is function-scoped while let and const are block-scoped.
+        //   diff var let const
+        // var
+        var x = 5;//redeclare DATA type and variable
+        var y = 6;
+        var x = 25;
+        var z = x + y;
+        document.getElementById("demo1").innerHTML =
+        "The value of z is: var :" + z;
+        // let
+        let x = 5;
+        let y = 6;
+        x = 45;//redeclare only variable
+        let z = x + y;
+        document.getElementById("demo2").innerHTML =
+        "The value of z is: let :" + z;
+    </pre>
+    <hr><H1>OUTPUT</H1>
+    <hr><H1>4.What is execution context</h1>
+    <pre>
+        There are two kinds of Execution Context in JavaScript:
+
+Global Execution Context (GEC)
+Function Execution Context (FEC)
+
+Global Execution Context (GEC)
+Whenever the JavaScript engine receives a script file, it first creates
+ a default Execution Context known as the Global Execution Context (GEC).
+
+The GEC is the base/default Execution Context where all JavaScript
+ code that is not inside of a function gets executed.
+
+For every JavaScript file, there can only be one GEC.
+Function Execution Context (FEC)
+Whenever a function is called, the JavaScript engine creates a
+ different type of Execution Context known as a Function Execution
+  Context (FEC) within the GEC to evaluate and execute the code within that function.
+
+Since every function call gets its own FEC, there can be more than one FEC in the run-time of a script.
+
+
+Global Execution Context (GEC)
+
+        function b(){
+
+        }
+        
+        function a(){
+            b();
+        }
+        
+        a();
+        Now first of all Global Execution Context is going to be created (as explained above)
+        
+        then execution starts and interpreeter encounters call to function
+        a(), and here a new execution context is created pushed on top EC
+        Stack
+        
+        so anytime you invoke a function a new EC is created & placed on top of EC Stack.
+        
+        so now EC for a() is CREATED interpreeter will execute the code inside a() line-by-line
+        
+        then intrepreeter encounters call to function b(), this creates another EC which is pushed on top or EC stack
+        
+        When b() finishes it will be popped-off the stack then a() will finish & all the way down to Global EC
+   
+        Function Execution Context (FEC)
+        function foo() {
+            alert(this);
+        }
+        
+        foo() // window
+        new foo() // foo
+
+        this IS IMP IN Function Execution Context (FEC)
+        <img src="https://www.javascripttutorial.net/wp-content/uploads/2019/12/javascript-execution-context-function-execution-context-in-creation-phase.png" alt="">
+        <!-- <A href="https://www.javascripttutorial.net/wp-content/uploads/2019/12/javascript-execution-context-function-execution-context-in-creation-phase.png">LINK</A> -->
+    </pre>
+    <hr><H1>5.What is creation phase and execution phase?</H1>
+    <PRE>
+        <img src="https://miro.medium.com/max/880/1*VXD8rtDW5HPxcxBiketdbg.jpeg" alt="">
+        1.creation phase?
+        let x = 10;
+
+        function timesTen(a){
+            return a * 10;
+        }
+
+        let y = timesTen(x);//output//100 
+
+        console.log(y);
+
+        First, declare the x variable and initialize its value with 10.
+        Second, declare the timesTen() function that accepts an argument and returns a value that is the
+         result of multiplication of the argument with 10.
+        Third, call the timesTen() function with the argument as the value of the x variable and store result in the variable y.
+        Finally, output the variable y to the Console.
+        
+        <img src="https://www.javascripttutorial.net/wp-content/uploads/2019/12/javascript-execution-context-global-execution-context-in-creation-phase.png" alt="https://www.javascripttutorial.net/wp-content/uploads/2019/12/javascript-execution-context-global-execution-context-in-creation-phase.png">
+        
+        2.execution phase?
+        In this phase, JS executes our code line by line and assigns the value to the
+         variables. In our example above, the value 10 to the variable a is set.
+        function foo() {
+            console.log("function foo is called!")
+          }
+          foo()
+          console.log(a);
+          var a = 10;
+          console.log(a)
+          //output
+          function foo is called!
+            undefined
+            10
+    </PRE>
+    <hr><H1>OUTPUT</H1>
+    <PRE></PRE>
+
+    <hr><H1>6.What is meant by first class functions</H1>
+    <PRE>
+        First-Class Function: A programming language is said to have First-class functions if functions in that
+         language are treated like other variables. So the functions can be assigned to any other variable or
+          passed as an argument or can be returned by another function. JavaScript treat function as a first-class-citizens. 
+          This means that functions are simply a value and are just another type of object.
+          
+          const Arithmetics = {
+            add: (a, b) => {
+                return `${a} + ${b} = ${a + b}`;
+            },
+            subtract: (a, b) => {
+                return `${a} - ${b} = ${a - b}`
+            },
+            multiply: (a, b) => {
+                return `${a} * ${b} = ${a * b}`
+            },
+            division: (a, b) => {
+                if (b != 0) return `${a} / ${b} = ${a / b}`;
+                return `Cannot Divide by Zero!!!`;
+            }
+      
+        }
+      //100 is treated as a thats a First-Class Function mean variable treating
+        document.write(Arithmetics.add(100, 100) + "<br>");
+        document.write(Arithmetics.subtract(100, 7) + "<br>");
+        document.write(Arithmetics.multiply(5, 5) + "<br>");
+        document.write(Arithmetics.division(100, 5));
+    </PRE>
+    <hr><H1>OUTPUT</H1>
+    <PRE>
+        100 + 100 = 200
+        100 - 7 = 93
+        5 * 5 = 25
+        100 / 5 = 20
+    </PRE>
+    <hr><H1>7.What are closures? Give an example of closure</H1>
+    <PRE>Take a variable in outer function and create an inner function to increase the counter every time it is called closure
+        function length(l) {
+            function bearth(b) {
+                let a=l*b;
+                return a;
+            }
+           return bearth(4)
+            
+        }
+        console.log(length(3));
+    </PRE>
+    
+    <hr><H1>OUTPUT</H1>
+    <PRE>12</PRE>
+    
+    <hr><H1>8.Explain call(), apply() and, bind() methods. Give an example of call(), apply(), bind()</H1>
+    
+    <PRE>
+        <a href="https://www.w3schools.com/JS/js_function_call.asp"></a>
+        The call() method calls the function directly and sets this to the first argument passed to the 
+        call method and if any other sequences of arguments preceding the first argument are passed 
+        to the call method then they are passed as an argument to the function.
+       
+        example
+        let nameObj = {
+            name: "Tony"
+        }
+          
+        let PrintName = {
+            name: "steve",
+            sayHi: function (age) {
+                console.log(this.name + " age is " + age);
+            }
+        }
+          
+        PrintName.sayHi.call(nameObj, 42);//Tony age is 42
+        PrintName.sayHi.call(PrintName,42);//steve age is 42
+
+        Apply() Method: The apply() method calls the function directly and sets
+         this to the first argument passed to the apply method and if any other 
+         arguments provided as an array are passed to the call method then they are passed as an argument to the function.
+
+        let nameObj = {
+            name: "Tony"
+        }
+        
+        let PrintName = {
+            name: "steve",
+            sayHi: function (...age) {
+                console.log(this.name + " age is " + age);
+            }
+        }
+        PrintName.sayHi.apply(nameObj, [42]);//Tony age is 42
+        PrintName.sayHi.apply(PrintName, [42]);//steve age is 42
+
+        Bind() Method: The bind() method creates a new function and when that new function is called it set this keyword 
+        to the first argument which is passed to the bind method, and if any other sequences of arguments preceding the first 
+        argument are passed to the bind method then they are passed as an argument to the new function when the new function is called.
+        
+        let nameObj = {
+            name: "Tony"
+        }
+          
+        let PrintName = {
+            name: "steve",
+            sayHi: function () {
+          
+                // Here "this" points to nameObj
+                console.log(this.name); 
+            }
+        }
+          
+        let HiFun = PrintName.sayHi.bind(nameObj);
+        HiFun();//Tony
+    </PRE>
+    
+    <hr><H1>9.What are objects in javascript?</H1>
+    <PRE>
+        Objects, in JavaScript, are the most important data type and form the building blocks for modern JavaScript.
+         These objects are quite different from JavaScript’s primitive data types (Number, String, Boolean, null, undefined, and symbol) 
+         in the sense that these primitive data types all store a single value each (depending on their types).
+        const person = {
+            firstName: "John",
+            lastName: "Doe",
+            age: 50,
+            eyeColor: "blue"
+          };
+          
+          // Display some data from the object:
+          document.getElementById("demo").innerHTML =
+          person.firstName + " is " + person.age + " years old.";
+          <a href="https://www.w3schools.com/js/js_objects.asp">obj</a>
+    </PRE>
+    <hr><H1>OUTPUT</H1>
+    <PRE>John is 50 years old.</PRE>
+    
+    <hr><H1>10.What are function constructors?</H1>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/Function">fun</a>
+    <pre>
+    The Function() constructor creates Function objects. Calling the constructor directly can create functions
+     dynamically, but suffers from security and similar (but far less significant) performance issues as eval(). However, 
+    unlike eval (which may have access to the local scope), the Function constructor creates 
+    functions which execute in the global scope only.
+    
+    const sum = new Function('a', 'b', 'return a + b');
+    console.log(sum(2, 6));
+    // Expected output: 8
+</pre>
+   
+    <hr><H1>11.Explain prototypes</H1>
+    <PRE>
+    Prototype property is basically an object (also known as Prototype object), where we can attach methods and
+     properties in a prototype object, which enables all the other objects to inherit these methods and properties.
+    
+     // function constructor
+    function Person(name, job, yearOfBirth){
+    this.name= name;
+    this.job= job;
+    this.yearOfBirth= yearOfBirth;
+    }
+    // this will show Person's prototype property
+    console.log(Person.prototype);
+    <a href="https://www.geeksforgeeks.org/prototype-in-javascript/">geeksforgeeks</a>
+    <a href="https://www.w3schools.com/JS/js_object_prototypes.asp">w3</a>
+    <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes">mozilla</a>
+    Prototype Inheritance
+    All JavaScript objects inherit properties and methods from a prototype:
+
+    Date objects inherit from Date.prototype
+    Array objects inherit from Array.prototype
+    Person objects inherit from Person.prototype
+    The Object.prototype is on the top of the prototype inheritance chain:
+
+    Date objects, Array objects, and Person objects inherit from Object.prototype.
+</PRE>
+        <hr><H1>12.What is prototype chain</H1>
+    <PRE>
+        prototype chain it mean calling function inside the object so it is chin property
+        const myObject = {
+            city: "Madrid",
+            greet() {
+              console.log(`Greetings from ${this.city}`);
+            },
+          };
+          
+          myObject.greet();// Greetings from Madrid
+          <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes">pp</a>
+    </PRE>
+    <br><hr>
+    <hr><H1>day2</H1>
+    <hr><H1>13.Give an example of inheritance using function constructor</H1>
+    <PRE>
+        Define inheritance using function constructor?
+
+        Using the constructor function, we can create a new object after passing the required parameters. 
+        Inheriting a previously defined constructor function means using the parameters of the previously 
+        defined function along with adding some new parameters to the newly defined constructor function. 
+        
+        example
+        function Employee(name, age, gender, id) {
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+            this.id = id;
+        };
+          
+        function Developer(name, age, gender, id, specialization) {
+          
+            // Calling Employee constructor function
+            Employee.call(this, name, age, gender, id);
+          
+            // Adding a new parameter
+            this.specialization = specialization;
+        }
+          
+        // Creating objects
+        let Employee1 = new Employee("Suraj", 28, "Male", 564);
+        let Developer1 = new Developer("Karishma", 31, "Female", 345,
+            "Frontend Developer");
+        console.log(Employee1);
+        console.log(Developer1);
+
+    </PRE>
+    
+    <hr><H1>
+   14.What are callbacks?
+    </H1>
+    <PRE>A callback is a function passed as an argument to another function.
+
+        Using a callback, you could call the calculator function (myCalculator) 
+        with a callback (myCallback), and let the calculator function run the callback after
+         the calculation is finished:
+
+        function myDisplayer(something) {
+            document.getElementById("demo").innerHTML = something;
+          }
+          
+          function myCalculator(num1, num2, myCallback) {
+            let sum = num1 + num2;
+            myCallback(sum);
+          }
+          
+          myCalculator(5, 5, myDisplayer);
+
+In the example above, myDisplayer is a called a callback function.
+
+It is passed to myCalculator() as an argument.
+
+When you pass a function as an argument, remember not to use parenthesis.
+
+Right: myCalculator(5, 5, myDisplayer);
+
+Wrong: myCalculator(5, 5, myDisplayer());
+    </PRE>
+    <hr><H1>15.What is the use of setTimeout?
+    </H1>
+    <PRE>
+        IT IS USED TO FIX TIME TO MAKE CHANGE AUTOMATICALLY
+
+
+        The setTimeout() method calls a function after a number of milliseconds.
+
+        1 second = 1000 milliseconds.
+
+        Notes
+        The setTimeout() is executed only once.
+
+        If you need repeated executions, use setInterval() instead.
+
+        Use the clearTimeout() method to prevent the function from starting.
+
+        To clear a timeout, use the id returned from setTimeout():
+
+        myTimeout = setTimeout(function, milliseconds);
+
+        EG
+
+        function sayHi() {
+            alert('Hello');
+          }
+          
+          setTimeout(sayHi, 1000);
+(OR)
+
+function startTime() {
+    const date = new Date();
+    document.getElementById("txt").innerHTML = date.toLocaleTimeString();
+    setTimeout(function() {startTime()}, 1000);
+  }
+    </PRE>
+    
+    <hr><H1>16.What is an event loop and call stack</H1>
+    <PRE>
+        <B>event loop</B>
+        JavaScript is a single-threaded synchronous programming language. 
+        But what does it actually mean? What is this event loop in JavaScript 
+        that we all keep talking about? 
+
+        What does it actually mean when we say JavaScript is single threaded?
+
+        It means that the main thread where JavaScript code is run, runs in one line 
+        at a time manner and there is no possibility of running code in parallel.
+        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20201130202346/singlethreadedjavascript.png" alt="https://media.geeksforgeeks.org/wp-content/uploads/20201130202346/singlethreadedjavascript.png">
+        <B>call stack</B>
+        The call stack is used by JavaScript to keep track of multiple function calls.
+         It is like a real stack in data structures where data can be pushed and popped and 
+         follows the Last In First Out (LIFO) principle. We use call stack for memorizing 
+         which function is running right now. 
+
+        Example: The below example demonstrates the call stack.
+
+        
+    function f1() {
+        console.log('Hi by f1!');
+      }
+        
+      function f2() {
+        f1();
+        console.log('Hi by f2!');
+      }
+        
+      f2();
+
+        "Hi by f1!"
+        "Hi by f2!"
+        <a href="https://www.geeksforgeeks.org/what-is-the-call-stack-in-javascript/">c</a> 
+    </PRE>
+    <hr><H1>17.What are promises and why do we need them?</H1>
+    <PRE>
+    <i>Promises allow errors to be passed down the chain and handled in one common place without having to put in layers of manual error handling.</i>
+    A JavaScript Promise object contains both the producing code and calls to the consuming code:
+        Promise Object Properties
+    A JavaScript Promise object can be:
+
+    Pending
+    Fulfilled
+    Rejected
+    The Promise object supports two properties: state and result.
+
+    While a Promise object is "pending" (working), the result is undefined.
+
+    When a Promise object is "fulfilled", the result is a value.
+
+    When a Promise object is "rejected", the result is an error object.
+    function myDisplayer(some) {
+        document.getElementById("demo").innerHTML = some;
+      }
+      
+      let myPromise = new Promise(function(myResolve, myReject) {
+        let x = 1;
+      
+      // some code (try to change x to 5)
+      
+        if (x == 0) {
+          myResolve("OK");
+        } else {
+          myReject("Error");
+        }
+      });
+      
+      myPromise.then(
+        function(value) {myDisplayer(value);},
+        function(error) {myDisplayer(error);}
+      );
+    </PRE>
+    <hr><H1>18.what is the purpose of async/await keywords?</H1>
+    <PRE>
+        The async and await keywords in JavaScript are used for working with asynchronous code in a synchronous-like
+         manner. The async keyword is used to declare a function as asynchronous, which means that it will
+          return a promise. Inside an async function, 
+        the await keyword can be used to pause the execution of the function until a promise is resolved.
+        The keyword async before a function makes the function return a promise:
+        async function myFunction() {return "Hello";}
+
+        myFunction().then(
+        function(value) {myDisplayer(value);},
+        function(error) {myDisplayer(error);}
+        );
+        The await keyword can only be used inside an async function.
+
+        The await keyword makes the function pause the execution and wait for a resolved promise before it continues:
+        async function myDisplay() {
+            let myPromise = new Promise(function(resolve, reject) {
+              resolve("I love myself !!");
+            });
+            document.getElementById("demo").innerHTML = await myPromise;
+          }
+          
+          myDisplay();
+    </PRE>
+    <hr><H1>19.What is hoisting?</H1>
+    <PRE>
+        Hoisting is a concept that enables us to extract values of variables and functions even before 
+        initializing/assigning value without getting errors and this is happening due to the 1st phase
+         (memory creation phase) of the Execution Context.
+
+
+        Hoisting is JavaScript's default behavior of moving declarations to the top.
+        JavaScript Declarations are Hoisted
+        In JavaScript, a variable can be declared after it has been used.
+        
+        In other words; a variable can be used before it has been declared.
+        only var is used in Hoisting 
+        hosting
+        {
+        var x; // Declare x//hosting x
+        x = 5; // Assign 5 to x
+
+        elem = document.getElementById("demo"); // Find an element 
+        elem.innerHTML = x;           // Display x in the element
+
+        }
+
+        not hosting
+        {
+        var x = 5; // Declare x//not hosting x // Assign 5 to x
+
+        elem = document.getElementById("demo"); // Find an element 
+        elem.innerHTML = x;           // Display x in the element
+        
+        }
+        <a href="https://www.w3schools.com/js/js_hoisting.asp">host</a>
+    </PRE>
+    
+    <hr><H1>20.What is the DOM?</H1>
+    <PRE>
+        DOM (Document Object Model)
+        The DOM is a W3C (World Wide Web Consortium) standard.
+
+The DOM defines a standard for accessing documents:
+
+"The W3C Document Object Model (DOM) is a platform and language-neutral interface that allows programs and scripts to dynamically access and update the content, structure, and style of a document."
+
+The W3C DOM standard is separated into 3 different parts:
+
+Core DOM - standard model for all document types
+XML DOM - standard model for XML documents
+HTML DOM - standard model for HTML documents
+<a href="https://www.w3schools.com/js/js_htmldom.asp">dom</a>
+    </PRE>
+    <hr><H1>
+21.Difference between undefined vs not defined vs NaN
+</H1>
+<PRE>
+undefined
+It works like when we declared a variable in the code but did not assign the value before printing the variable value
+console.log(a);//undefined
+var a = 5;
+console.log(a);
+//OUTPUT
+undefined
+5
+
+
+not defined
+It works like when we did not declare the variable and try to call that variable.
+console.log(a);//undefined
+  var a = 5;
+  console.log(a);
+  console.log(b);//not defined
+  //OUTPUT
+  undefined
+  5
+  not defined
+
+  NaN (Not a Number)
+  It represents a value that is not a valid number. It can be used 
+  to check whether a number entered is a valid number or not a number.
+   To assign a variable to NaN value, we can use one of the two following ways.
+  console.log("hi"/5)//NaN
+  console.log("hi"+5)//"hi5"
+  console.log("hi"-5)//NaN
+    </PRE>
+    
+    <hr><H1>22.Nullish operator</H1>
+    <PRE>
+    The ?? operator returns the first argument if it is not nullish (null or undefined).
+    f??t=f
+    t??f =t
+    t??null or undefined =t
+    null or undefined??t=t
+    Otherwise it returns the second.
+    {
+        let name = "hii";
+    let text = "missing";
+    let result = name ?? text;
+    console.log(result)//hii
+    }
+    
+    {let name = null;
+    let text = "missing";
+    let result = name ?? text;
+    console.log(result)//missing
+    }
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing">n</a>
+</PRE>
+    <hr><H1>23.How many operators do we have in JS ?</H1>
+    <PRE>
+        Types of JavaScript Operators
+There are 8 different types of JavaScript operators:
+
+Arithmetic Operators
+Assignment Operators
+Comparison Operators
+String Operators
+Logical Operators
+Bitwise Operators
+Ternary Operators
+Type Operators
+<a href="https://www.w3schools.com/js/js_operators.asp">Operators</a>
+    </PRE>
+    
+    <hr><H1>24.What are pure functions?</H1>
+    <PRE>
+        A Pure Function is a function (a block of code) that always returns the same result if
+         the same arguments are passed. It does not depend on any state or data change during a program’s 
+         execution. Rather, it only depends on its input arguments.
+
+        Also, a pure function does not produce any observable side effects such as network requests or data mutation, etc.
+
+    Let’s see the below JavaScript Function:
+
+    function calculateGST( productPrice ) {
+        return productPrice * 0.05;
+        }
+        console.log(calculateGST(15))
+        //output
+        0.75
+
+        The above function will always return the same result if we pass the same product price. In other words, its output doesn’t 
+        get affected by any other values/state changes. So we can call the “calculate GST” function a Pure Function.
+    </PRE>
+
+    <hr><H1>25.What is callback hell</H1>
+    <PRE>
+        Callback Hell: Callback Hell is essentially nested callbacks stacked below one another forming a pyramid 
+        structure. Every callback depends/waits for the previous callback, thereby making a pyramid structure that
+         affects the readability and maintainability of the code. 
+         <a href="https://www.geeksforgeeks.org/what-to-understand-callback-and-callback-hell-in-javascript/">callback</a>
+    </PRE>
+    
+    <hr><H1>26.What is promise chaining</H1>
+    <PRE>
+        Promise Chaining: Promise Chaining is a simple concept by which we may initialize another promise inside our .
+        then() method and accordingly we may execute our results. The function inside then captures the value returned
+         by the previous promise 
+
+        The syntax for using promise chaining is as follows.
+        let promise = new Promise((resolve, reject) => {
+            resolve("Hello JavaScript");
+            });
+             
+            promise
+            .then( function (result1){
+                console.log(result1);
+                return new Promise((resolve,reject) =>{
+                    resolve("GFG is awesome");
+                })
+            })
+            .then((result2) => {
+                console.log(result2);
+            });
+            //output
+            Hello JavaScript
+            GFG is awesome
+    </PRE>
+    <hr><H1>27.What are arrow functions?</H1>
+    <PRE>
+        Arrow functions allow us to write shorter function syntax:
+        let myFunction = (a, b) => a * b;
+
+        Before Arrow:
+        hello = function() {
+        return "Hello World!";
+        }
+
+        With Arrow Function:
+        hello = () => {
+        return "Hello World!";
+        }
+
+        <a href="https://www.w3schools.com/Js/js_arrow_function.asp">arr</a>
+    </PRE>
+    
+    <hr><H1>28. The keyword async before a function makes the function return a promise:
+       </H1>
+    <PRE>
+        async function myFunction() {return "Hello";}
+
+        myFunction().then(
+        function(value) {myDisplayer(value);},
+        function(error) {myDisplayer(error);}
+        );
+        The await keyword can only be used inside an async function.
+
+        The await keyword makes the function pause the execution and wait for a resolved promise before it continues:
+        async function myDisplay() {
+            let myPromise = new Promise(function(resolve, reject) {
+              resolve("I love myself !!");
+            });
+            document.getElementById("demo").innerHTML = await myPromise;
+          }
+          
+          myDisplay();
+    </PRE>
+    <hr><H1>29.What is a Temporal Dead Zone?</H1>
+    <PRE>
+        Temporal Dead Zone is the period of time during which the let and const declarations cannot be accessed. 
+        Temporal Dead Zone starts when the code execution enters the block which contains the let or const declaration
+         and continues until the declaration has executed.
+         <a href="https://www.educative.io/answers/what-is-the-temporal-dead-zone-in-javascript">Temporal Dead Zone</a>
+    </PRE>
+    
+    <hr><H1>30.What is the for-in loop in JavaScript? Give its syntax</H1>
+    <PRE>
+        The for in loop is used to iterate the properties of an object.
+        syntax
+        for(property in object){
+            //Block of statements 
+           }
+           eg 1 array
+           
+           let c=['red']
+            for(let key in c){
+                console.log(key);
+                console.log(c[key]);
+                console.log("key : ",c[key]);
+                console.log(key ," : ",c[key]);
+            };
+
+            // output
+            0
+            red
+            key :  red
+            0  :  red
+
+            eg 3 array
+            let c=['red','blue','green']
+            for(let key in c){
+                console.log(key);
+                console.log(c[key]);
+                console.log("key : ",c[key]);
+                console.log(key ," : ",c[key]);
+            };
+            //output
+            0
+            red
+            key :  red
+            0  :  red
+            1
+            blue
+            key :  blue
+            1  :  blue
+            2
+            green
+            key :  green
+            2  :  green
+            <a href="https://www.w3schools.com/js/js_loop_forin.asp">forin</a>
+    </PRE>
+    <hr><H1>31.Explain Local Scope, Block Scope, Functional Scope and Scope Chain in javascript</H1>
+    <a href="https://www.w3schools.com/js/js_scope.asp">scope</a>
+    <PRE>
+        Block Scope
+        let and const. is block scope
+        These two keywords provide Block Scope in JavaScript.
+
+Variables declared inside a { } block cannot be accessed from outside the block:
+{
+    let x = 2;
+  }
+  // x can NOT be used here
+
+
+
+  Local Scope
+Variables declared within a JavaScript function, become LOCAL to the function.
+// code here can NOT use carName
+
+function myFunction() {
+  let carName = "Volvo";
+  // code here CAN use carName
+}
+
+// code here can NOT use carName
+
+Function Scope
+JavaScript has function scope: Each function creates a new scope.
+
+Variables defined inside a function are not accessible (visible) from outside the function.
+
+Variables declared with var, let and const are quite similar when declared inside a function.
+
+They all have Function Scope:
+
+function myFunction() {
+  var carName = "Volvo";   // Function Scope
+}
+
+
+Scope Chain:
+
+JavaScript engine uses scopes to find out the exact location or accessibility of variables and that particular
+ process is known as Scope Chain.
+Scope Chain means that one variable has a scope (it may be global or local/function or block scope) is used 
+by another variable or function having another scope (may be global or local/function or block scope).
+This complete chain formation goes on and stops when the user wishes to stop it according to the requirement.
+
+var global_variable = 20;
+  
+    function main_function() {
+        // Local Variable
+        var local_variable = 30;
+  
+        var nested_function = function () {
+  
+            // Display the value inside the local variable
+            console.log(local_variable);
+        }
+  
+        var another_nested_function = function () {
+              
+            // Displays the value inside the global variable
+            console.log(global_variable);
+        }
+  
+        nested_function();
+        another_nested_function();
+    }
+  
+    main_function();
+    //OUTPUT
+    30
+20
+<a href="https://www.geeksforgeeks.org/explain-scope-and-scope-chain-in-javascript/">cs</a>
+    </PRE>
+    
+    <hr><H1>32.What is difference between null and undefined and where to use what?</H1>
+    <PRE>
+        Null: It is the intentional absence of the value. It is one of the primitive values of JavaScript.
+        Null is an assignment value. It can be assigned to a variable as a representation of no value. 
+        It is a Primitive value in Javascript
+
+        Undefined: It means the value does not exist in the compiler. It is the global object.
+        Undefined means a variable has been declared but has yet not been assigned a value.
+        It is an ECMAScript1 (ES1) feature.
+        It is a global property.
+
+        null == undefined // true
+        null === undefined // false
+
+    </PRE>
+    <hr><H1>33.what is Symbol?</H1>
+    <PRE>Symbol is a built-in object whose constructor returns a symbol primitive — also called a Symbol
+        const sym1 = Symbol();
+        const sym2 = Symbol("foo");
+        const sym3 = Symbol("foo");
+        <a href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/global_objects/symbol">symbol</a>
+    </PRE>
+    
+    <hr><H1>34.Write code to explain map and filter in arrays</H1>
+    <PRE>
+        <a href="https://www.w3schools.com/js/js_maps.asp">map</a>
+        map
+
+        A Map holds key-value pairs where the keys can be any datatype.
+        A Map remembers the original insertion order of the keys.
+        
+        let num =[1,2,3,4,5,6,7,8];
+        let ev = num.map((val)=>{ return val;});
+        console.log(num);//[1, 2, 3, 4, 5, 6, 7, 8]
+        console.log(ev);//[1, 2, 3, 4, 5, 6, 7, 8]
+
+        let people =[
+      {id : 1, fname : "josan",lname :"sanjay"},
+      {id : 2, fname : "riya",lname :"raj"},
+      {id : 1, fname : "mithra",lname :"bindhu"},
+]
+
+
+FILTER
+
+The filter() method creates a new array filled with elements that pass a test provided by a function.
+
+The filter() method does not execute the function for empty elements.
+
+The filter() method does not change the original array.
+
+let fulln =  people.map((val)=>{
+      return val.fname+val.lname
+})
+console.log(fulln);//output//[ 'josansanjay', 'riyaraj', 'mithrabindhu' ]
+
+
+EVEN
+let age =[16,17,24,56,44];
+let adult = age.filter((value)=>{
+      return value >=18;
+});
+      console.log("adult",adult);//OUTPUT//adult (3) [24, 56, 44]
+
+
+let n=[1,2,3,4,5];
+let even =n.filter((value)=>{
+      return value % 2 ==0;
+})
+let o =n.filter((value)=>{
+      return value % 2 ==1;
+})
+console.log("even",even);//even (2) [2, 4]
+console.log("odd",o);//odd (3) [1, 3, 5]
+
+    </PRE>
+    <hr><H1>35.Explain passed by value and passed by reference</H1>
+    <PRE>
+        Pass By Value: In Pass by value, function is called by directly passing the value of the variable as an argument.
+         So any changes made inside the function does not affect the original value.
+
+        In Pass by value, parameters passed as an arguments create its own copy. So any changes made inside the function is 
+        made to the copied value not to the original value .
+
+        function Passbyvalue(a, b) {
+            let tmp;
+            tmp = b;
+            b = a;
+            a = tmp;
+            console.log(`Inside Pass by value
+                function -> a = ${a} b = ${b}`);
+        }
+         
+        let a = 1;
+        let b = 2;
+        console.log(`Before calling Pass by value
+                Function -> a = ${a} b = ${b}`);
+         
+        Passbyvalue(a, b);
+         
+        console.log(`After calling Pass by value
+               Function -> a =${a} b = ${b}`);
+
+               Output:
+
+        Before calling Pass by value Function -> a = 1 b = 2
+        Inside Pass by value function -> a = 2 b = 1
+        After calling Pass by value Function -> a =1 b = 2
+
+
+        Pass by Reference: In Pass by Reference, Function is called by directly passing the reference/address of
+         the variable as an argument. So changing the value inside the function also change the original value. 
+         In JavaScript array and Object follows pass by reference property.
+
+        In Pass by reference, parameters passed as an arguments does not create its own copy, it refers to the 
+        original value so changes made inside function affect the original value. 
+
+        function PassbyReference(obj) {
+            let tmp = obj.a;
+            obj.a = obj.b;
+            obj.b = tmp;
+         
+            console.log(`Inside Pass By Reference
+                Function -> a = ${obj.a} b = ${obj.b}`);
+        }
+         
+        let obj = {
+            a: 10,
+            b: 20
+         
+        }
+        console.log(`Before calling Pass By Reference
+            Function -> a = ${obj.a} b = ${obj.b}`);
+         
+        PassbyReference(obj)
+         
+        console.log(`After calling Pass By Reference
+            Function -> a = ${obj.a} b = ${obj.b}`);
+
+            Output:
+            Before calling Pass By Reference Function -> a = 10 b = 20
+            Inside Pass By Reference Function -> a = 20 b = 10
+            After calling Pass By Reference Function -> a = 20 b = 10
+            <a href="https://www.geeksforgeeks.org/pass-by-value-and-pass-by-reference-in-javascript/">pass</a>
+    </PRE>
+    
+
+    <hr><H1>36.Please explain Self Invoking Function and its code</H1>
+    <PRE>
+        Function expressions can be made "self-invoking".
+
+        A self-invoking expression is invoked (started) automatically, without being called.
+
+        Function expressions will execute automatically if the expression is followed by ().
+
+        You cannot self-invoke a function declaration.
+
+        You have to add parentheses around the function to indicate that it is a function expression:
+
+        Example
+        (function () {
+        let x = "Hello!!";  // I will invoke myself
+        })();
+    </PRE>
+    <hr><H1>37.Create a button , on click of which new Heading tag h1 should be added with text as "MERN stack" on the screen above button</H1>
+    <PRE>
+        &lt;h1> &lt;/h1>
+        &lt;button onclick="add()">add &lt;/button>
+        &lt;script>
+           function add() {
+            let addh1 =document.querySelector("h1")
+            addh1.innerHTML="MERN stack";
+           }
+           &lt;/script> 
+    </PRE>
+    
+    <hr><H1>38.Write code to get 1st H1 element from a webpage using DOM</H1>
+    <PRE>
+        &lt;h1>&lt;/h1> 
+        &lt;script>      
+            let addh1 =document.querySelector("h1")
+            addh1.innerHTML="MERN stack";      
+        &lt;/script>
+    </PRE>
+    <hr><H1>39.Write code to implement timer clock using JS -- display HH:MM:SS -- 
+        the time should keep updating every second</H1>
+  
+     
+            <pre>
+                &lt;h1 id="t">00:00:00&lt;/h1>
+                &lt;script>
+                const timer = document.getElementById("t");
+                const now = new Date();
+                const hours = now.getHours().toString
+                ().padStart(2, "0");
+                const minutes = now.getMinutes().toString
+                ().padStart(2, "0");
+                const seconds = now.getSeconds().toString
+                ().padStart(2, "0");
+                const currentTime = hours + ":" + minutes +
+                 ":" + seconds;
+                timer.innerText = currentTime;
+                        
+                &lt;/script>
+            </pre>
+            <h2>OUTPUT :</h2>
+            <h1 id="timer">00:00:00</h1>
+            <script>
+              setInterval(function () {
+                const timer = document.getElementById("timer");
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, "0");
+                const minutes = now.getMinutes().toString().padStart(2, "0");
+                const seconds = now.getSeconds().toString().padStart(2, "0");
+                const currentTime = hours + ":" + minutes + ":" + seconds;
+                timer.innerText = currentTime;
+              }, 1000);
+            </script>
+    
+    
+    <hr><H1>40.Create an HTML page having content as Hello world and a button named Replace Text. When user will
+         click on this button page content should be changed to "Welcome to Elevation academy"</H1>
+    <PRE>
+        &lt;h1>Hello world&lt;/h1>
+    <button onclick="add()">Replace Text.</button>
+    &lt;script>
+       function add() {
+        let addh1 =document.querySelector("h1")
+        addh1.innerHTML="Welcome to Elevation academy";
+       }
+       &lt;/script>
+    </PRE>
+    <hr><H1>41.Create an HTML page having content as Hello world and a button named "Hide Text." When user
+         will click on this button hide the "Hello World" text</H1>
+    <PRE>
+        &lt;h1>Hello world&lt;/h1>
+        &lt;button onclick="add()">Replace Text.&lt;/button>
+        &lt;script>
+           function add() {
+            let addh1 =document.querySelector("h1")
+            // addh1.innerHTML="";
+            ///////////(or)
+            addh1.style.display="none"
+           }
+           &lt;/script>
+    </PRE>
+    
+    <hr><H1>42.Fetch an API</H1>
+    <PRE>
+        The Fetch API interface allows web browser to make HTTP requests to web servers.
+         No need for XMLHttpRequest anymore.
+        
+         NORMAL FETCH
+        
+         &lt;h1>Hello world&lt;/h1>    
+         &lt;script>
+      let file ="newpgforfetch.html"
+      fetch (file)
+      .then(x => x.text())
+      .then(y => document.querySelector("h1").innerHTML = y);
+      &lt;/script>
+
+FUNCTION FETCH
+&lt;h1>Hello world&lt;/h1>    
+&lt;script>
+      getText("newpgforfetch.html");
+
+async function getText(file) {
+  let x = await fetch(file);
+  let y = await x.text();
+  document.querySelector("h1").innerHTML = y
+}
+&lt;/script>
+<a href="https://www.w3schools.com/js/js_api_fetch.asp">fetch</a>
+    </PRE>
+    <hr>
+    
+
+
+</body>
+</html>
